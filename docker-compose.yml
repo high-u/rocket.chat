@@ -1,0 +1,19 @@
+version: 3.2
+services:
+  db:
+    container_name: rocketchat-mongodb
+    restart: always
+    image: mongo
+    command: --smallfiles
+    volumes:
+      - ${HOME}/mongodb/data:/data/db
+  rocketchat:
+    container_name: rocketchat
+    depends_on:
+      - db
+    restart: always
+    image: rocket.chat
+    ports:
+      - 8090:3000
+    environment:
+      - ROOT_URL=https://chat.xxxxx.com
